@@ -29,6 +29,25 @@
     <span id="dark-mode-icon">🌙</span>
 </button>
 <body class="bg-gray-100 font-sans">
+    <div id="user-nav" class="bg-white border-b border-gray-100 p-4 sticky top-0 z-[100] shadow-sm">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <h1 class="font-black text-xl text-blue-600">GH-MARKET</h1>
+
+        <div id="logged-out-ui" class="flex gap-2">
+            <button onclick="openAuthModal()" class="text-xs font-bold text-blue-600 px-4 py-2 border border-blue-600 rounded-xl">Login</button>
+            <button onclick="openAuthModal()" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl">Register</button>
+        </div>
+
+        <div id="logged-in-ui" class="hidden flex items-center gap-3">
+            <div class="text-right">
+                <p id="user-display-name" class="text-sm font-bold text-gray-800 leading-none">Customer Name</p>
+                <span class="text-[9px] font-black text-green-500 uppercase tracking-widest">✅ Verified Buyer</span>
+            </div>
+            <div id="user-avatar" class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-black border-2 border-white shadow-sm">U</div>
+            <button onclick="logout()" class="text-[10px] text-red-500 font-bold ml-2">Logout</button>
+        </div>
+    </div>
+</div>
 
     <nav class="bg-white shadow-lg p-4 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-blue-600 tracking-tight">NanaObasty Market Place</h1>
@@ -190,6 +209,28 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
 
     <script>
+        // Function to show/hide the Login window
+function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+// --- IMPORTANT: YOU MUST ADD YOUR FIREBASE CONFIG HERE ---
+// 1. Go to console.firebase.google.com
+// 2. Create a project
+// 3. Enable "Google Auth" in Authentication tab
+// 4. Copy the Config code and paste it here
+
+// Example logic for UI update
+function updateUI(user) {
+    if (user) {
+        document.getElementById('logged-out-ui').classList.add('hidden');
+        document.getElementById('logged-in-ui').classList.remove('hidden');
+        document.getElementById('user-display-name').innerText = user.displayName;
+        document.getElementById('user-avatar').innerText = user.displayName.charAt(0);
+    } else {
+        document.getElementById('logged-out-ui').classList.remove('hidden');
+        document.getElementById('logged-in-ui').classList.add('hidden');
+    }
+}
         // All the JavaScript functions I gave you (addToCart, toggleCart, etc.)
     </script>
     <section class="py-12 px-4 bg-gray-50 border-y border-gray-200">
@@ -235,7 +276,25 @@ window.addEventListener('DOMContentLoaded', () => {
             </div>
         
 
-    
+    <div id="auth-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-[300] flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl w-full max-w-sm p-8 shadow-2xl relative">
+        <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 text-xl">✕</button>
+        
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-black text-gray-900">Welcome! 🇬🇭</h2>
+            <p class="text-gray-500 text-xs">Join the community to shop & sell.</p>
+        </div>
+
+        <button onclick="loginWithGoogle()" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-200 py-3 rounded-2xl font-bold mb-4 shadow-sm hover:bg-gray-50 transition-all">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/pwa/google.svg" class="w-5 h-5">
+            Continue with Google
+        </button>
+
+        <div class="text-center">
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest">Coming Soon: Email Login</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
 </body>
