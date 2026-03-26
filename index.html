@@ -22,10 +22,9 @@
     transition: opacity 0.8s ease-out;
     pointer-events: none; /* Prevents clicking through while it's fading */
 }
-        .hidden { display: none !important; }
-        .hidden {
-    display: none !important;
-}
+       .hidden { display: none !important; }
+#auth-gate.hidden { display: none !important; }
+
     /* These styles apply only when 'dark-mode' class is active */
     body.dark-mode {
         background-color: #1a202c; /* Dark Navy/Black */
@@ -97,8 +96,8 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-2">Message Sent?</h3>
                     <p class="text-gray-500 text-sm mb-8 px-4">Once you send the verification message on WhatsApp, come back here to enter the shop.</p>
                     
-<button onclick="completeLogin()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-black shadow-lg hover:bg-blue-700 active:scale-95 transition-all">
-    I've Sent It ✅
+<button onclick="completeLogin()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold">
+    I've Sent the Message ✅
 </button>            
                 </div>
             </div>
@@ -308,66 +307,57 @@ window.addEventListener('DOMContentLoaded', function() {
     checkStatus();
 });
 
-function openWhatsAppVerify() {
-    // Get the phone number from the input field
-    var userPhone = document.getElementById('user-phone').value;
+<script>
+// This runs the moment the page opens
+window.onload = function() {
+    checkStatus();
+};
 
-    if (userPhone.length < 9) {
-        alert("Please enter a valid Ghana phone number!");
+function openWhatsAppVerify() {
+    var phone = document.getElementById('user-phone').value;
+    if (phone.length < 9) {
+        alert("Enter your Ghana number first!");
         return;
     }
-
-    // YOUR NUMBER: 053 954 7368 -> Format: 233539547368
-    var myNumber = "233539547368"; 
-    var messageText = "Hi! I am verifying my number: " + userPhone + " for the shop.";
     
-    // BUILD THE URL MANUALLY (The safest way)
-    var finalUrl = "https://api.whatsapp.com/send?phone=" + myNumber + "&text=" + encodeURIComponent(messageText);
+    // Save number and redirect to WhatsApp
+    localStorage.setItem('temp_phone', phone);
+    var myNumber = "233539547368";
+    var msg = "Hi! I am verifying my number: " + phone;
+    window.location.href = "https://api.whatsapp.com/send?phone=" + myNumber + "&text=" + encodeURIComponent(msg);
 
-    // Save temporarily to browser memory
-    localStorage.setItem('temp_phone', userPhone);
-
-    // REDIRECT (This opens WhatsApp immediately)
-    window.location.href = finalUrl;
-
-    // Switch the screen to Step 2
-    setTimeout(function() {
-        document.getElementById('verify-step-1').classList.add('hidden');
-        document.getElementById('verify-step-2').classList.remove('hidden');
-    }, 1200);
+    // Show Step 2
+    document.getElementById('verify-step-1').classList.add('hidden');
+    document.getElementById('verify-step-2').classList.remove('hidden');
 }
 
 function completeLogin() {
+    // 1. Save the login status so it stays hidden
     var phone = localStorage.getItem('temp_phone');
-    if (phone) {
-        localStorage.setItem('market_verified_phone', phone);
-        checkStatus(); 
+    localStorage.setItem('market_verified_phone', phone || "Verified User");
+
+    // 2. THE FIX: Manually hide the entire login screen
+    var gate = document.getElementById('auth-gate');
+    if (gate) {
+        gate.style.display = 'none'; // This forces it to vanish!
+        gate.classList.add('hidden');
+    }
+
+    // 3. Show the shop header
+    var profile = document.getElementById('logged-in-profile');
+    if (profile) {
+        profile.classList.remove('hidden');
+        profile.style.display = 'flex';
     }
 }
 
 function checkStatus() {
-    var savedPhone = localStorage.getItem('market_verified_phone');
-    var authGate = document.getElementById('auth-gate');
-    var profileHeader = document.getElementById('logged-in-profile');
-
-    if (savedPhone) {
-        // Hide the full screen login
-        if (authGate) authGate.classList.add('hidden');
-        // Show the top profile badge
-        if (profileHeader) {
-            profileHeader.classList.remove('hidden');
-            document.getElementById('active-phone').innerText = savedPhone;
-        }
-    } else {
-        // Show login if no phone found
-        if (authGate) authGate.classList.remove('hidden');
-    }
-}
-
-function logout() {
-    if(confirm("Sign out and clear profile?")) {
-        localStorage.removeItem('market_verified_phone');
-        location.reload();
+    var loggedIn = localStorage.getItem('market_verified_phone');
+    if (loggedIn) {
+        // If already logged in, hide the gate immediately
+        document.getElementById('auth-gate').style.display = 'none';
+        document.getElementById('logged-in-profile').classList.remove('hidden');
+        document.getElementById('active-phone').innerText = loggedIn;
     }
 }
 </script>
