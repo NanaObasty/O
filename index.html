@@ -51,22 +51,29 @@
             <button onclick="openAuthModal()" class="text-xs font-bold text-blue-600 px-4 py-2 border border-blue-600 rounded-xl">Login</button>
             <button onclick="openAuthModal()" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl">Register</button>
         </div>
-<div id="auth-gate" class="mx-4 my-6 p-8 bg-gradient-to-br from-blue-700 to-blue-500 rounded-[2rem] text-white shadow-xl">
-    <div id="step-1">
-        <h2 class="text-2xl font-black mb-2">Ghana Market ID 🇬🇭</h2>
-        <p class="text-blue-100 text-xs mb-6">Enter your WhatsApp number to start shopping.</p>
+<div id="auth-gate" class="mx-4 my-6 p-8 bg-green-600 rounded-[2rem] text-white shadow-xl">
+    <div id="verify-step-1">
+        <h2 class="text-2xl font-black mb-2">WhatsApp Login 🇬🇭</h2>
+        <p class="text-green-100 text-xs mb-6">Enter your number to link your account.</p>
         
-        <div class="relative mb-4">
-            <span class="absolute left-4 top-4 text-gray-400 font-bold">+233</span>
-            <input type="tel" id="user-phone" placeholder="24 000 0000" 
-                   class="w-full p-4 pl-16 rounded-2xl border-none text-gray-900 font-bold focus:ring-4 focus:ring-yellow-400">
-        </div>
+        <input type="tel" id="user-phone" placeholder="024 000 0000" 
+               class="w-full p-4 rounded-2xl border-none text-gray-900 font-bold mb-4">
         
-        <button onclick="sendFakeOTP()" class="w-full bg-yellow-400 text-blue-900 py-4 rounded-2xl font-black uppercase tracking-widest shadow-lg">
-            Get Access Code
+        <button onclick="openWhatsAppVerify()" class="w-full bg-white text-green-700 py-4 rounded-2xl font-black shadow-lg flex items-center justify-center gap-2">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="w-5 h-5">
+            Verify via WhatsApp
         </button>
     </div>
 
+    <div id="verify-step-2" class="hidden text-center">
+        <h2 class="text-2xl font-black mb-2">Almost Done!</h2>
+        <p class="text-green-100 text-xs mb-6">After you send the WhatsApp message, click below to enter.</p>
+        
+        <button onclick="completeLogin()" class="w-full bg-yellow-400 text-green-900 py-4 rounded-2xl font-black animate-bounce">
+            I've Sent the Message ✅
+        </button>
+    </div>
+</div>
     <div id="step-2" class="hidden">
         <h2 class="text-2xl font-black mb-2">Check WhatsApp</h2>
         <p class="text-blue-100 text-xs mb-6">Enter the 4-digit code sent to your phone.</p>
