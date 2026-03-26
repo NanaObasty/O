@@ -189,33 +189,32 @@
 </a>
     <script>
         <script>
-            function openWhatsAppVerify() {
-    const phone = document.getElementById('user-phone').value;
-    if (phone.length < 9) {
+      function openWhatsAppVerify() {
+    const phoneInput = document.getElementById('user-phone').value;
+    
+    if (phoneInput.length < 9) {
         alert("Please enter a valid Ghana number!");
         return;
     }
 
-    // 1. Prepare the WhatsApp Message
-    const myNumber = "233539547368"; // <-- PUT YOUR REAL NUMBER HERE
-    const message = `Hi! I am verifying my phone number: ${phone} for your shop profile.`;
+    // Your number: 053 954 7368 -> Format: 233539547368
+    const myNumber = "233539547368"; 
+    const message = `Hi! I am verifying my number: ${phoneInput} for the shop.`;
     
-    // 2. Open WhatsApp
-                window.open(`https://wa.me/233539547368?text=${encodeURIComponent(message)}`, '_blank');
-    // 3. Show the next step on the website
-    document.getElementById('verify-step-1').classList.add('hidden');
-    document.getElementById('verify-step-2').classList.remove('hidden');
-    
-    // Temporarily save the phone so we know who is logging in
-    localStorage.setItem('temp_phone', phone);
-}
+    // We use api.whatsapp.com because it's more stable for redirects
+    const waUrl = `https://api.whatsapp.com/send?phone=${myNumber}&text=${encodeURIComponent(message)}`;
 
-function completeLogin() {
-    const phone = localStorage.getItem('temp_phone');
-    if (phone) {
-        localStorage.setItem('market_verified_phone', phone);
-        checkLoginStatus(); // This hides the gate and shows the shop
-    }
+    // Save to local memory
+    localStorage.setItem('temp_phone', phoneInput);
+
+    // Redirect the user
+    window.location.href = waUrl;
+
+    // Show the next step
+    setTimeout(() => {
+        document.getElementById('verify-step-1').classList.add('hidden');
+        document.getElementById('verify-step-2').classList.remove('hidden');
+    }, 1500);
 }
 // This function filters by the category button clicked
 function filterCategory(category) {
