@@ -69,6 +69,62 @@
     <span class="ml-2 hidden md:inline font-semibold">Chat with Seller</span>
 </a>
     <script>
+        let cart = [];
+
+function toggleCart() {
+    const sidebar = document.getElementById('cart-sidebar');
+    sidebar.classList.toggle('translate-x-full');
+}
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCartUI();
+    // Optional: open the cart automatically when item added
+    if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) toggleCart();
+}
+
+function updateCartUI() {
+    const cartContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
+    
+    cartContainer.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price;
+        cartContainer.innerHTML += `
+            <div class="flex justify-between items-center border-b pb-2">
+                <div>
+                    <p class="font-semibold">${item.name}</p>
+                    <p class="text-sm text-gray-500 text-blue-600">GHS ${item.price}</p>
+                </div>
+                <button onclick="removeFromCart(${index})" class="text-red-500 text-xs">Remove</button>
+            </div>
+        `;
+    });
+
+    cartCount.innerText = cart.length;
+    cartTotal.innerText = total.toLocaleString();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+function checkoutCart() {
+    if (cart.length === 0) return alert("Your cart is empty!");
+    
+    let message = "Hello! I want to order:%0A";
+    cart.forEach(item => {
+        message += `- ${item.name} (GHS ${item.price})%0A`;
+    });
+    message += `%0A*Total: GHS ${document.getElementById('cart-total').innerText}*`;
+    
+    // Replace with your Ghana WhatsApp number
+    window.open(`https://wa.me/233241234567?text=${message}`, '_blank');
+}
         <script>
 // This function filters by the category button clicked
 function filterCategory(category) {
@@ -112,5 +168,28 @@ function searchProducts() {
     }
 }
 </script>
+        <button onclick="toggleCart()" class="fixed top-20 right-6 bg-blue-600 text-white p-4 rounded-full shadow-xl z-50">
+    🛒 <span id="cart-count" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
+</button>
+
+<div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl translate-x-full transition-transform duration-300 z-[60] p-6 overflow-y-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold">Your Cart</h2>
+        <button onclick="toggleCart()" class="text-gray-500">Close ✕</button>
+    </div>
+    
+    <div id="cart-items" class="space-y-4">
+        </div>
+
+    <div class="mt-8 border-t pt-4">
+        <div class="flex justify-between font-bold text-xl mb-6">
+            <span>Total:</span>
+            <span>GHS <span id="cart-total">0</span></span>
+        </div>
+        <button onclick="checkoutCart()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700">
+            Checkout on WhatsApp
+        </button>
+    </div>
+</div>
 </body>
 </html>
