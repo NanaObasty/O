@@ -189,6 +189,37 @@
 </a>
     <script>
         <script>
+            function completeLogin() {
+    // 1. Get the number we saved when they clicked "Verify"
+    var phone = localStorage.getItem('temp_phone');
+    
+    if (phone) {
+        // 2. Save it permanently so the login screen stays gone
+        localStorage.setItem('market_verified_phone', phone);
+        
+        // 3. Immediately hide the login overlay
+        var authGate = document.getElementById('auth-gate');
+        if (authGate) {
+            authGate.classList.add('hidden'); // Uses Tailwind
+            authGate.style.display = 'none';  // Backup: forces it to vanish
+        }
+
+        // 4. Show the "Verified" badge/profile at the top
+        var profileHeader = document.getElementById('logged-in-profile');
+        if (profileHeader) {
+            profileHeader.classList.remove('hidden');
+            document.getElementById('active-phone').innerText = phone;
+        }
+
+        // 5. Success Alert (Optional)
+        console.log("Login Complete. Welcome to the shop!");
+    } else {
+        // If they skipped step 1, send them back
+        alert("Please enter your phone number first!");
+        document.getElementById('verify-step-2').classList.add('hidden');
+        document.getElementById('verify-step-1').classList.remove('hidden');
+    }
+}
       function openWhatsAppVerify() {
     const phoneInput = document.getElementById('user-phone').value;
     
