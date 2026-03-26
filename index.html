@@ -94,23 +94,6 @@ function searchProducts() {
     }
 }
 </script>
-function searchProducts() {
-    // 1. Get the text from the search bar
-    let input = document.getElementById('productSearch').value.toLowerCase();
-    
-    // 2. Get all your product cards
-    let cards = document.getElementsByClassName('product-card');
-
-    // 3. Loop through them and hide the ones that don't match
-    for (let i = 0; i < cards.length; i++) {
-        let title = cards[i].getElementsByTagName('h3')[0].innerText.toLowerCase();
-        if (title.includes(input)) {
-            cards[i].style.display = "";
-        } else {
-            cards[i].style.display = "none";
-        }
-    }
-}
 </script>
         <button onclick="toggleCart()" class="fixed top-20 right-6 bg-blue-600 text-white p-4 rounded-full shadow-xl z-50">
     🛒 <span id="cart-count" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
