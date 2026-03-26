@@ -69,62 +69,6 @@
     <span class="ml-2 hidden md:inline font-semibold">Chat with Seller</span>
 </a>
     <script>
-        let cart = [];
-
-function toggleCart() {
-    const sidebar = document.getElementById('cart-sidebar');
-    sidebar.classList.toggle('translate-x-full');
-}
-
-function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCartUI();
-    // Optional: open the cart automatically when item added
-    if(document.getElementById('cart-sidebar').classList.contains('translate-x-full')) toggleCart();
-}
-
-function updateCartUI() {
-    const cartContainer = document.getElementById('cart-items');
-    const cartCount = document.getElementById('cart-count');
-    const cartTotal = document.getElementById('cart-total');
-    
-    cartContainer.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += item.price;
-        cartContainer.innerHTML += `
-            <div class="flex justify-between items-center border-b pb-2">
-                <div>
-                    <p class="font-semibold">${item.name}</p>
-                    <p class="text-sm text-gray-500 text-blue-600">GHS ${item.price}</p>
-                </div>
-                <button onclick="removeFromCart(${index})" class="text-red-500 text-xs">Remove</button>
-            </div>
-        `;
-    });
-
-    cartCount.innerText = cart.length;
-    cartTotal.innerText = total.toLocaleString();
-}
-
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-}
-
-function checkoutCart() {
-    if (cart.length === 0) return alert("Your cart is empty!");
-    
-    let message = "Hello! I want to order:%0A";
-    cart.forEach(item => {
-        message += `- ${item.name} (GHS ${item.price})%0A`;
-    });
-    message += `%0A*Total: GHS ${document.getElementById('cart-total').innerText}*`;
-    
-    // Replace with your Ghana WhatsApp number
-    window.open(`https://wa.me/233241234567?text=${message}`, '_blank');
-}
         <script>
 // This function filters by the category button clicked
 function filterCategory(category) {
