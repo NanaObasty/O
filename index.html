@@ -1,30 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    window.addEventListener('load', async function () {
-  await Clerk.load();
+    <div id="login-box"></div>
 
-  const userButtonDiv = document.getElementById('user-button');
-  const loginBoxDiv = document.getElementById('login-box');
-
-  if (Clerk.user) {
-    // 1. Hide the login box if they are already signed in
-    loginBoxDiv.style.display = 'none';
-    
-    // 2. Show the User Profile Button (allows them to manage their account)
-    Clerk.mountUserButton(userButtonDiv);
-    
-    // 3. Optional: Add a welcome message next to the button
-    const welcomeMsg = document.createElement('span');
-    welcomeMsg.innerText = `Akwaaba, ${Clerk.user.firstName}!`;
-    welcomeMsg.className = "text-sm font-bold mr-2 text-gray-700";
-    userButtonDiv.prepend(welcomeMsg);
-    
-  } else {
-    // User is logged out - show the beautiful login box you customized
-    Clerk.mountSignIn(loginBoxDiv);
-  }
-});
+<div id="user-button" class="font-bold text-blue-600"></div>
     <script
   async
   crossorigin="anonymous"
@@ -33,23 +12,8 @@
   type="text/javascript">
 </script>
 
-<script>
-  window.addEventListener('load', async function () {
-    await Clerk.load();
 
-    if (Clerk.user) {
-      // User is logged in - show their name
-      document.getElementById('user-button').innerHTML = `Hi, ${Clerk.user.firstName}`;
-      // You can also show a "Sign Out" button here
-    } else {
-      // User is logged out - show the Login button
-      Clerk.mountSignIn(document.getElementById('login-box'));
-    }
-  });
-</script>
-    <div id="login-box"></div>
-
-<div id="user-button" class="font-bold text-blue-600"></div>
+    
     <style>
         <style>
     /* These styles apply only when 'dark-mode' class is active */
@@ -258,29 +222,30 @@ window.addEventListener('DOMContentLoaded', () => {
         </div>
 
     <script>
-        // Function to show/hide the Login window
-function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
-function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+   window.addEventListener('load', async function () {
+  // 1. Wait for Clerk to load from the CDN
+  if (typeof Clerk === 'undefined') {
+    console.error("Clerk script not found. Check your Internet or API Key.");
+    return;
+  }
 
-// --- IMPORTANT: YOU MUST ADD YOUR FIREBASE CONFIG HERE ---
-// 1. Go to console.firebase.google.com
-// 2. Create a project
-// 3. Enable "Google Auth" in Authentication tab
-// 4. Copy the Config code and paste it here
+  await Clerk.load();
 
-// Example logic for UI update
-function updateUI(user) {
-    if (user) {
-        document.getElementById('logged-out-ui').classList.add('hidden');
-        document.getElementById('logged-in-ui').classList.remove('hidden');
-        document.getElementById('user-display-name').innerText = user.displayName;
-        document.getElementById('user-avatar').innerText = user.displayName.charAt(0);
+  // 2. Check if a user is already logged in
+  if (Clerk.user) {
+    document.getElementById('login-box').innerHTML = `<p class="font-bold">Welcome, ${Clerk.user.firstName}!</p>`;
+    // Show a user profile button instead
+    Clerk.mountUserButton(document.getElementById('user-button'));
+  } else {
+    // 3. Mount the Sign-In UI into the div
+    const targetDiv = document.getElementById('login-box');
+    if (targetDiv) {
+      Clerk.mountSignIn(targetDiv);
     } else {
-        document.getElementById('logged-out-ui').classList.remove('hidden');
-        document.getElementById('logged-in-ui').classList.add('hidden');
+      console.error("Could not find the 'login-box' div in your HTML!");
     }
-}
-        // All the JavaScript functions I gave you (addToCart, toggleCart, etc.)
+  }
+});
     </script>
     <section class="py-12 px-4 bg-gray-50 border-y border-gray-200">
     <div class="max-w-4xl mx-auto text-center">
