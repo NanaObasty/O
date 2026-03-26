@@ -124,6 +124,16 @@ function searchProducts() {
     
     <div id="cart-items" class="space-y-4">
         </div>
+    <div class="mt-6 pt-4 border-t border-gray-100">
+    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Delivery Location</label>
+    <select id="delivery-zone" onchange="updateCartUI()" class="w-full p-3 border-2 border-gray-100 rounded-xl bg-gray-50 text-sm focus:border-blue-500 outline-none">
+        <option value="0" data-name="Pickup">Store Pickup - GHS 0</option>
+        <option value="30" data-name="Accra Central">Accra Central - GHS 30</option>
+        <option value="50" data-name="Accra Outskirts">Accra Outskirts - GHS 50</option>
+        <option value="80" data-name="Kumasi / Koforidua">Kumasi / Koforidua - GHS 80</option>
+        <option value="100" data-name="Other Regions">Other Regions - GHS 100</option>
+    </select>
+</div>
 
     <div class="mt-8 border-t pt-4">
         <div class="flex justify-between font-bold text-xl mb-6">
@@ -135,5 +145,19 @@ function searchProducts() {
         </button>
     </div>
 </div>
+        <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl translate-x-full transition-transform duration-300 z-[60] p-6 overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold">Your Cart</h2>
+            <button onclick="toggleCart()" class="text-gray-500">Close ✕</button>
+        </div>
+        <div id="cart-items" class="space-y-4"></div>
+        </div>
+
+    <script>
+        // All the JavaScript functions I gave you (addToCart, toggleCart, etc.)
+    </script>
+
+</body>
+</html>
 </body>
 </html>
