@@ -17,6 +17,11 @@
     
     <style>
         <style>
+        .fade-out {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+    pointer-events: none; /* Prevents clicking through while it's fading */
+}
         .hidden { display: none !important; }
         .hidden {
     display: none !important;
@@ -55,6 +60,14 @@
             <button onclick="openAuthModal()" class="text-xs font-bold text-blue-600 px-4 py-2 border border-blue-600 rounded-xl">Login</button>
             <button onclick="openAuthModal()" class="text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl">Register</button>
         </div>
+        <div id="welcome-popup" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[1000] hidden">
+    <div class="bg-gray-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-gray-700 animate-bounce">
+        <div class="bg-green-500 p-1 rounded-full">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <p class="font-bold text-sm tracking-wide">Verification Successful!</p>
+    </div>
+</div>
 <div id="auth-gate" class="fixed inset-0 z-[999] bg-slate-900/95 backdrop-blur-md flex items-center justify-center p-6">
     
     <div class="w-full max-w-md bg-white rounded-[2.5rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-300">
@@ -190,35 +203,38 @@
 </a>
     <script>
         <script>
-            function completeLogin() {
-    // 1. Get the number we saved when they clicked "Verify"
+           function completeLogin() {
     var phone = localStorage.getItem('temp_phone');
-    
+    var authGate = document.getElementById('auth-gate');
+    var welcome = document.getElementById('welcome-popup');
+
     if (phone) {
-        // 2. Save it permanently so the login screen stays gone
+        // 1. Save Permanently
         localStorage.setItem('market_verified_phone', phone);
         
-        // 3. Immediately hide the login overlay
-        var authGate = document.getElementById('auth-gate');
+        // 2. Start Fading Out the Login Screen
         if (authGate) {
-            authGate.classList.add('hidden'); // Uses Tailwind
-            authGate.style.display = 'none';  // Backup: forces it to vanish
+            authGate.classList.add('fade-out');
+            
+            // Wait for animation (800ms) then remove it from the page
+            setTimeout(function() {
+                authGate.classList.add('hidden');
+                checkStatus(); // Updates the shop and profile badge
+            }, 800);
         }
 
-        // 4. Show the "Verified" badge/profile at the top
-        var profileHeader = document.getElementById('logged-in-profile');
-        if (profileHeader) {
-            profileHeader.classList.remove('hidden');
-            document.getElementById('active-phone').innerText = phone;
+        // 3. Show the "Success" Popup
+        if (welcome) {
+            welcome.classList.remove('hidden');
+            
+            // Hide the popup again after 3 seconds
+            setTimeout(function() {
+                welcome.classList.add('hidden');
+            }, 3500);
         }
 
-        // 5. Success Alert (Optional)
-        console.log("Login Complete. Welcome to the shop!");
     } else {
-        // If they skipped step 1, send them back
-        alert("Please enter your phone number first!");
-        document.getElementById('verify-step-2').classList.add('hidden');
-        document.getElementById('verify-step-1').classList.remove('hidden');
+        alert("Please verify your number via WhatsApp first!");
     }
 }
       function openWhatsAppVerify() {
