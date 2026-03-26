@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    window.addEventListener('load', async function () {
+  await Clerk.load();
+
+  const userButtonDiv = document.getElementById('user-button');
+  const loginBoxDiv = document.getElementById('login-box');
+
+  if (Clerk.user) {
+    // 1. Hide the login box if they are already signed in
+    loginBoxDiv.style.display = 'none';
+    
+    // 2. Show the User Profile Button (allows them to manage their account)
+    Clerk.mountUserButton(userButtonDiv);
+    
+    // 3. Optional: Add a welcome message next to the button
+    const welcomeMsg = document.createElement('span');
+    welcomeMsg.innerText = `Akwaaba, ${Clerk.user.firstName}!`;
+    welcomeMsg.className = "text-sm font-bold mr-2 text-gray-700";
+    userButtonDiv.prepend(welcomeMsg);
+    
+  } else {
+    // User is logged out - show the beautiful login box you customized
+    Clerk.mountSignIn(loginBoxDiv);
+  }
+});
     <script
   async
   crossorigin="anonymous"
