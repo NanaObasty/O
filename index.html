@@ -169,35 +169,6 @@
     <span class="ml-2 hidden md:inline font-semibold">Chat with Seller</span>
 </a>
     <script>
-        function openWhatsAppVerify() {
-    const phone = document.getElementById('user-phone').value;
-    if (phone.length < 9) {
-        alert("Please enter a valid Ghana number!");
-        return;
-    }
-
-    // 1. Prepare the WhatsApp Message
-    const myNumber = "233XXXXXXXXX"; // <-- PUT YOUR REAL NUMBER HERE
-    const message = `Hi! I am verifying my phone number: ${phone} for your shop profile.`;
-    
-    // 2. Open WhatsApp
-    window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, '_blank');
-
-    // 3. Show the next step on the website
-    document.getElementById('verify-step-1').classList.add('hidden');
-    document.getElementById('verify-step-2').classList.remove('hidden');
-    
-    // Temporarily save the phone so we know who is logging in
-    localStorage.setItem('temp_phone', phone);
-}
-
-function completeLogin() {
-    const phone = localStorage.getItem('temp_phone');
-    if (phone) {
-        localStorage.setItem('market_verified_phone', phone);
-        checkLoginStatus(); // This hides the gate and shows the shop
-    }
-}
         <script>
 // This function filters by the category button clicked
 function filterCategory(category) {
@@ -243,6 +214,35 @@ window.addEventListener('DOMContentLoaded', () => {
         toggleDarkMode();
     }
 });
+           function openWhatsAppVerify() {
+    const phone = document.getElementById('user-phone').value;
+    if (phone.length < 9) {
+        alert("Please enter a valid Ghana number!");
+        return;
+    }
+
+    // 1. Prepare the WhatsApp Message
+    const myNumber = "233XXXXXXXXX"; // <-- PUT YOUR REAL NUMBER HERE
+    const message = `Hi! I am verifying my phone number: ${phone} for your shop profile.`;
+    
+    // 2. Open WhatsApp
+    window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`, '_blank');
+
+    // 3. Show the next step on the website
+    document.getElementById('verify-step-1').classList.add('hidden');
+    document.getElementById('verify-step-2').classList.remove('hidden');
+    
+    // Temporarily save the phone so we know who is logging in
+    localStorage.setItem('temp_phone', phone);
+}
+
+function completeLogin() {
+    const phone = localStorage.getItem('temp_phone');
+    if (phone) {
+        localStorage.setItem('market_verified_phone', phone);
+        checkLoginStatus(); // This hides the gate and shows the shop
+    }
+}
 </script>
 </script>
         <button onclick="toggleCart()" class="fixed top-20 right-6 bg-blue-600 text-white p-4 rounded-full shadow-xl z-50">
