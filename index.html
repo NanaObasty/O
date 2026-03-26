@@ -313,36 +313,6 @@ window.addEventListener('DOMContentLoaded', function() {
 window.onload = function() {
     checkStatus();
 };
-
-function completeLogin() {
-    console.log("Button clicked! Attempting to enter shop...");
-
-    // 1. Force the login screen to disappear immediately
-    var gate = document.getElementById('auth-gate');
-    if (gate) {
-        gate.style.display = 'none';
-        gate.setAttribute('style', 'display: none !important');
-        console.log("Auth gate hidden.");
-    }
-
-    // 2. Show the shop profile badge
-    var profile = document.getElementById('logged-in-profile');
-    if (profile) {
-        profile.classList.remove('hidden');
-        profile.style.display = 'flex';
-    }
-
-    // 3. Save the status so it stays hidden on refresh
-    var tempPhone = localStorage.getItem('temp_phone') || "Guest";
-    localStorage.setItem('market_verified_phone', tempPhone);
-    
-    // 4. Update the phone display
-    var phoneDisplay = document.getElementById('active-phone');
-    if (phoneDisplay) {
-        phoneDisplay.innerText = tempPhone;
-    }
-}</script>
-</script>
         <button onclick="toggleCart()" class="fixed top-20 right-6 bg-blue-600 text-white p-4 rounded-full shadow-xl z-50">
     🛒 <span id="cart-count" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">0</span>
 </button>
@@ -395,6 +365,36 @@ function completeLogin() {
         </div>
 
     <script>
+            
+function completeLogin() {
+    console.log("Button clicked! Attempting to enter shop...");
+
+    // 1. Force the login screen to disappear immediately
+    var gate = document.getElementById('auth-gate');
+    if (gate) {
+        gate.style.display = 'none';
+        gate.setAttribute('style', 'display: none !important');
+        console.log("Auth gate hidden.");
+    }
+
+    // 2. Show the shop profile badge
+    var profile = document.getElementById('logged-in-profile');
+    if (profile) {
+        profile.classList.remove('hidden');
+        profile.style.display = 'flex';
+    }
+
+    // 3. Save the status so it stays hidden on refresh
+    var tempPhone = localStorage.getItem('temp_phone') || "Guest";
+    localStorage.setItem('market_verified_phone', tempPhone);
+    
+    // 4. Update the phone display
+    var phoneDisplay = document.getElementById('active-phone');
+    if (phoneDisplay) {
+        phoneDisplay.innerText = tempPhone;
+    }
+}
+
       function openWhatsAppVerify() {
     const phone = document.getElementById('user-phone').value;
     if (phone.length < 9) {
@@ -425,6 +425,7 @@ function completeLogin() {
     }
 }
       </script>
+</script>
     <section class="py-12 px-4 bg-gray-50 border-y border-gray-200">
     <div class="max-w-4xl mx-auto text-center">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Join the VIP Club 📧</h3>
