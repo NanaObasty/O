@@ -326,8 +326,7 @@ function completeLogin() {
         </div>
 
     <script>
-        <script>
-        function openWhatsAppVerify() {
+      function openWhatsAppVerify() {
     const phone = document.getElementById('user-phone').value;
     if (phone.length < 9) {
         alert("Please enter a valid Ghana number!");
@@ -356,78 +355,7 @@ function completeLogin() {
         checkLoginStatus(); // This hides the gate and shows the shop
     }
 }
-        function sendFakeOTP() {
-    const phone = document.getElementById('user-phone').value;
-    if (phone.length < 9) {
-        alert("Please enter a valid Ghana phone number.");
-        return;
-    }
-    
-    // Simulate sending a code
-    document.getElementById('step-1').classList.add('hidden');
-    document.getElementById('step-2').classList.remove('hidden');
-    
-    // In a real app, you'd use a service like Twilio here.
-    console.log("Your demo code is 1234"); 
-}
-
-function verifyAndLogin() {
-    const code = document.getElementById('otp-code').value;
-    const phone = document.getElementById('user-phone').value;
-
-    if (code === "1234") { // Our "Demo" code
-        localStorage.setItem('market_verified_phone', phone);
-        checkLoginStatus();
-    } else {
-        alert("Invalid Code. Try 1234 for testing.");
-    }
-}
-
-function checkLoginStatus() {
-    const savedPhone = localStorage.getItem('market_verified_phone');
-    if (savedPhone) {
-        document.getElementById('auth-gate').classList.add('hidden');
-        document.getElementById('logged-in-profile').classList.remove('hidden');
-        document.getElementById('active-phone').innerText = "+233 " + savedPhone;
-        
-        // Unlock your "Buy" buttons here
-        document.querySelectorAll('.buy-btn').forEach(btn => btn.disabled = false);
-    }
-}
-
-function logout() {
-    localStorage.removeItem('market_verified_phone');
-    location.reload();
-}
-
-// Run on page load
-window.onload = checkLoginStatus;
-   window.addEventListener('load', async function () {
-  // 1. Wait for Clerk to load from the CDN
-  if (typeof Clerk === 'undefined') {
-    console.error("Clerk script not found. Check your Internet or API Key.");
-    return;
-  }
-
-  await Clerk.load();
-
-  // 2. Check if a user is already logged in
-  if (Clerk.user) {
-    document.getElementById('login-box').innerHTML = `<p class="font-bold">Welcome, ${Clerk.user.firstName}!</p>`;
-    // Show a user profile button instead
-    Clerk.mountUserButton(document.getElementById('user-button'));
-  } else {
-    // 3. Mount the Sign-In UI into the div
-    const targetDiv = document.getElementById('login-box');
-    if (targetDiv) {
-      Clerk.mountSignIn(targetDiv);
-    } else {
-      console.error("Could not find the 'login-box' div in your HTML!");
-    }
-  }
-});
-    </script>
-</script>
+      </script>
     <section class="py-12 px-4 bg-gray-50 border-y border-gray-200">
     <div class="max-w-4xl mx-auto text-center">
         <h3 class="text-2xl font-bold text-gray-800 mb-2">Join the VIP Club 📧</h3>
