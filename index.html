@@ -147,6 +147,21 @@
             <a href="#" class="hover:text-white">Support</a>
         </div>
     </footer>
-
+function filterPrice(category) {
+    const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+        const price = parseFloat(card.getAttribute('data-price'));
+        if (category === 'all') {
+            card.style.display = 'block';
+        } else if (category === 'under-100' && price < 100) {
+            card.style.display = 'block';
+        } else if (category === 'over-100' && price >= 100) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
 </body>
 </html>
