@@ -55,7 +55,14 @@
             </div>
         </div>
     </header>
-
+<div class="max-w-7xl mx-auto px-4 py-6 flex flex-wrap items-center justify-between border-b border-gray-200 mb-8">
+    <h3 class="text-xl font-bold text-gray-800">Filter by Price:</h3>
+    <div class="space-x-2 mt-4 sm:mt-0">
+        <button onclick="filterPrice('all')" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold">All</button>
+        <button onclick="filterPrice('under-100')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">Under $100</button>
+        <button onclick="filterPrice('over-100')" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">$100 - $500</button>
+    </div>
+</div>
    <main class="max-w-7xl mx-auto px-4 py-12">
 
     <div id="electronics" class="mb-16">
@@ -67,6 +74,9 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                 <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500" class="h-40 w-full object-cover">
                 <div class="p-4">
+                    <div class="product-card bg-white rounded-xl shadow-sm border" data-price="150">
+    <h4 class="price-tag text-lg font-bold mt-1">$150.00</h4>
+</div>
                     <span class="text-xs font-bold text-green-600 uppercase">Featured</span>
                     <h4 class="text-lg font-bold mt-1">$450.00</h4>
                     <p class="text-gray-600 text-sm mb-3">MacBook Air - Excellent Condition</p>
@@ -85,6 +95,9 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                 <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500" class="h-40 w-full object-cover">
                 <div class="p-4">
+                    <div class="product-card bg-white rounded-xl shadow-sm border" data-price="150">
+    <h4 class="price-tag text-lg font-bold mt-1">$150.00</h4>
+</div>
                     <h4 class="text-lg font-bold">$12,500</h4>
                     <p class="text-gray-600 text-sm mb-3">2018 Toyota Corolla - Low Mileage</p>
                     <button class="w-full border border-blue-600 text-blue-600 py-2 rounded-lg font-bold hover:bg-blue-50">View Details</button>
