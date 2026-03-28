@@ -41,6 +41,18 @@
 <meta property="twitter:image" content="https://nanaobasty.github.io/O/">
 </head>
 <body class="bg-gray-50 font-sans">
+    <div id="user-banner" class="bg-blue-50 p-3 text-center hidden">
+    <p class="text-xs font-medium">
+        Welcome, <span id="user-email" class="font-bold text-blue-600"></span>! 
+        <button onclick="logout()" class="ml-4 text-red-500 underline">Logout</button>
+    </p>
+</div>
+
+<div id="login-callout" class="p-4 text-center">
+    <a href="auth.html" class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg">
+        Login to Start Selling
+    </a>
+</div>
 <nav>
     ...
     <div class="flex items-center gap-4">
