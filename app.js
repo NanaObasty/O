@@ -44,26 +44,7 @@ function showSlide(index) {
     if (index >= totalSlides) currentSlide = 0;
     else if (index < 0) currentSlide = totalSlides - 1;
     else currentSlide = index;
-    const ghanaProducts = [
-    { 
-        id: 1, 
-        name: "Elegant Kente Gown", 
-        category: "Dresses", 
-        price: 450, 
-        location: "Accra", 
-        // Notice the 'w_500' in the link for speed!
-        image: "https://res.cloudinary.com/yourname/image/upload/w_500,c_fill/v1/kente-dress.jpg" 
-    },
-    { 
-        id: 2, 
-        name: "Gentleman's Suede Shoes", 
-        category: "Shoes", 
-        price: 320, 
-        location: "K-dua", 
-        image: "https://res.cloudinary.com/yourname/image/upload/w_500,c_fill/v1/suede-shoes.jpg" 
-    }
-];
-
+  
     // Move the container
     slides.style.transform = `translateX(-${currentSlide * 100}%)`;
 
