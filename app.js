@@ -113,3 +113,35 @@ container.innerHTML += `
         </a>
     </div>
 `;
+// Add this below your existing product display logic
+function showRelatedProducts(currentCategory, currentId) {
+    const relatedContainer = document.getElementById('related-grid');
+    
+    // Filter items: Same category but NOT the one we are currently viewing
+    const relatedItems = ghanaProducts.filter(p => p.category === currentCategory && p.id != currentId).slice(0, 4);
+
+    if (relatedItems.length === 0) {
+        relatedContainer.innerHTML = "<p class='text-xs text-gray-400'>No similar items found.</p>";
+        return;
+    }
+
+    relatedItems.forEach(item => {
+        relatedContainer.innerHTML += `
+            <a href="details.html?id=${item.id}" class="group">
+                <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-2">
+                    <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                </div>
+                <h4 class="text-[11px] font-bold text-gray-800 line-clamp-1">${item.name}</h4>
+                <p class="text-xs font-black text-blue-600">GH₵ ${item.price}</p>
+            </a>
+        `;
+    });
+}
+
+// Call the function inside your main 'if (product)' block
+if (product) {
+    // ... (Your existing code to show the main product) ...
+    
+    // NEW: Load the related items
+    showRelatedProducts(product.category, product.id);
+}
