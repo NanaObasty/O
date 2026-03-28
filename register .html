@@ -21,6 +21,28 @@
         </label>
     </div>
 </div>
+    <div class="mb-6">
+    <label class="block text-sm font-bold text-gray-700 mb-2">Primary Selling Category</label>
+    <div class="relative">
+        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <i class="fas fa-tags"></i>
+        </span>
+        <select name="category" required 
+                class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition appearance-none bg-white">
+            <option value="" disabled selected>Select a category...</option>
+            <option value="Electronics">📱 Electronics & Gadgets</option>
+            <option value="Vehicles">🚗 Cars & Vehicles</option>
+            <option value="Property">🏠 Real Estate / Property</option>
+            <option value="Fashion">👕 Fashion & Clothing</option>
+            <option value="Home">🛋️ Home & Furniture</option>
+            <option value="Services">🛠️ Professional Services</option>
+            <option value="Other">✨ Other</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+            <i class="fas fa-chevron-down text-xs"></i>
+        </div>
+    </div>
+</div>
     <div class="max-w-2xl mx-auto px-4 py-12">
         <div class="text-center mb-10">
             <h1 class="text-3xl font-extrabold text-gray-900">Become a Seller</h1>
