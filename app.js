@@ -126,3 +126,29 @@ if (product) {
     // NEW: Load the related items
     showRelatedProducts(product.category, product.id);
 }
+<script>
+  // 1. Your Firebase Config (Copy-paste the same one from auth.html)
+  const firebaseConfig = {
+  apiKey: "AIzaSyDynABU6MzF3SJvruoIVKOW6RgC2UbISHs",
+  authDomain: "ghana-market-697f9.firebaseapp.com",
+  projectId: "ghana-market-697f9",
+  storageBucket: "ghana-market-697f9.firebasestorage.app",
+  messagingSenderId: "821323194557",
+  appId: "1:821323194557:web:4ef214bae4f4923373d7d4",
+  measurementId: "G-W8RQK1EFT7"
+};
+  firebase.initializeApp(firebaseConfig);
+
+  // 2. The script that hides the button if the user is logged in
+  firebase.auth().onAuthStateChanged((user) => {
+      const loginButton = document.getElementById('login-callout');
+      if (user) {
+          // If logged in, hide the "Login to Start Selling" button
+          loginButton.classList.add('hidden');
+          console.log("User is logged in as: " + user.email);
+      } else {
+          // If not logged in, show the button
+          loginButton.classList.remove('hidden');
+      }
+  });
+</script>
