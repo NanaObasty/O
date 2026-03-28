@@ -85,12 +85,9 @@
             <i class="fas fa-search"></i>
         </span>
         
-        <input type="text" 
-               id="product-search" 
-               onkeyup="searchProducts()" 
-               placeholder="Search 100+ items..." 
-               class="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none text-sm transition-all">
-    </div>
+        <input id="search-mobile" onkeyup="searchProducts('search-mobile')" type="text" placeholder="Search Kente, Shoes..." class="search-input p-2 rounded-lg border w-full">
+
+<input id="search-desktop" onkeyup="searchProducts('search-desktop')" type="text" placeholder="Search items in Koforidua..." class="search-input p-2 rounded-lg border w-80">
 </div>
             <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-700 transition">
                 + Post an Ad
