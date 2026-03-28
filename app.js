@@ -151,4 +151,26 @@ if (product) {
           loginButton.classList.remove('hidden');
       }
   });
-</script>
+</script
+    firebase.auth().onAuthStateChanged((user) => {
+    const loginCallout = document.getElementById('login-callout');
+    const sellButton = document.getElementById('sell-now-container');
+    const userBanner = document.getElementById('user-banner'); // If you have the top welcome bar
+
+    if (user) {
+        // ✅ USER IS LOGGED IN
+        loginCallout.classList.add('hidden');    // Hide "Login to Start Selling"
+        sellButton.classList.remove('hidden');   // Show "Post an Item to Sell"
+        
+        if(userBanner) {
+            userBanner.classList.remove('hidden');
+            document.getElementById('user-email').innerText = user.email;
+        }
+    } else {
+        // ❌ USER IS LOGGED OUT
+        loginCallout.classList.remove('hidden'); // Show Login button
+        sellButton.classList.add('hidden');      // Hide Sell button
+        
+        if(userBanner) userBanner.classList.add('hidden');
+    }
+});
