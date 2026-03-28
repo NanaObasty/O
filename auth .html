@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup | NanaObasty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center p-6">
+
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-xl p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-black text-blue-600">QuickTrade.gh</h1>
+            <p id="auth-title" class="text-gray-500 text-sm">Login to start trading</p>
+        </div>
+
+        <form id="auth-form" class="space-y-4">
+            <input type="email" id="email" placeholder="Email Address" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" required>
+            <input type="password" id="password" placeholder="Password" class="w-full p-4 rounded-xl border border-gray-100 bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none" required>
+            
+            <button type="submit" id="main-btn" class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition">Login</button>
+        </form>
+
+        <div class="mt-6 text-center space-y-4">
+            <button onclick="loginWithGoogle()" class="w-full py-3 border border-gray-200 rounded-xl flex items-center justify-center gap-2 font-medium text-gray-700 hover:bg-gray-50">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18"> Continue with Google
+            </button>
+            
+            <p class="text-xs text-gray-500">
+                Don't have an account? 
+                <button onclick="toggleAuth()" id="toggle-link" class="text-blue-600 font-bold">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 1. YOUR FIREBASE CONFIG GOES HERE
+        const firebaseConfig = {
+            apiKey: "AIzaSyDynABU6MzF3SJvruoIVKOW6RgC2UbISHs",
+            authDomain: "ghana-market-697f9.firebaseapp.com",
+            projectId: "ghana-market-697f9",
+            storageBucket: "ghana-market-697f9.firebasestorage.ap",
+            messagingSenderId: "821323194557",
+            appId: "1:821323194557:web:4ef214bae4f4923373d7d4"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+        let isLogin = true;
+
+        // 2. Toggle between Login and Signup
+        function toggleAuth() {
+            isLogin = !isLogin;
+            document.getElementById('auth-title').innerText = isLogin ? "Login to start trading" : "Create your free account";
+            document.getElementById('main-btn').innerText = isLogin ? "Login" : "Sign Up";
+            document.getElementById('toggle-link').innerText = isLogin ? "Sign Up" : "Login";
+        }
+
+        // 3. Handle Form Submission
+        document.getElementById('auth-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (isLogin) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => window.location.href = "index.html")
+                    .catch(err => alert(err.message));
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(() => window.location.href = "index.html")
+                    .catch(err => alert(err.message));
+            }
+        });
+
+        // 4. Google Login
+        function loginWithGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(() => window.location.href = "index.html")
+                .catch(err => alert(err.message));
+        }
+    </script>
+</body>
+</html>
