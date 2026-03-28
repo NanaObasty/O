@@ -1,1 +1,26 @@
 .hidden { display: none !important; }
+function searchProducts(id) {
+    // 1. Get what the user typed
+    const searchTerm = document.getElementById(id).value.toLowerCase();
+    
+    // 2. Filter your ghanaProducts list
+    const filteredResults = ghanaProducts.filter(product => {
+        return product.name.toLowerCase().includes(searchTerm) || 
+               product.category.toLowerCase().includes(searchTerm) ||
+               product.location.toLowerCase().includes(searchTerm);
+    });
+
+    // 3. Clear the grid and show only matches
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = '';
+
+    if (filteredResults.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center py-10 text-gray-400">No items found for "${searchTerm}"</p>`;
+    } else {
+        // Reuse your display function to draw the matching cards
+        filteredResults.forEach(product => {
+            // This is the same code you used in displayProducts()
+            renderCard(product); 
+        });
+    }
+}
