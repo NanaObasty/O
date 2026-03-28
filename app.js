@@ -12,3 +12,26 @@ sellerForm.addEventListener('submit', function() {
     btnText.innerText = "Sending Application...";
     btnSpinner.classList.remove('hidden');
 });
+// Show the flyer as a popup when the page loads
+window.onload = function() {
+    const flyer = document.getElementById('flyer-container');
+    
+    // Create a dark background overlay
+    const overlay = document.createElement('div');
+    overlay.className = "fixed inset-0 bg-black bg-opacity-80 z-[10000] flex items-center justify-center p-4";
+    overlay.id = "flyer-overlay";
+    
+    // Move the flyer inside the overlay
+    overlay.appendChild(flyer);
+    document.body.appendChild(overlay);
+
+    // Add a "Close" button to the flyer
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = "× Close & Start Shopping";
+    closeBtn.className = "absolute -top-10 right-0 text-white font-bold text-lg";
+    closeBtn.onclick = function() {
+        document.body.removeChild(overlay);
+    };
+    flyer.style.position = "relative";
+    flyer.appendChild(closeBtn);
+};
