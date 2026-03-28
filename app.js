@@ -174,3 +174,21 @@ if (product) {
         if(userBanner) userBanner.classList.add('hidden');
     }
 });
+function searchProducts() {
+    // This line 'finds' the input box you just pasted above
+    const input = document.getElementById('product-search');
+    const query = input.value.toLowerCase();
+    
+    // This line 'finds' where the items are displayed
+    const container = document.getElementById('product-grid');
+
+    // Filter logic...
+    const filtered = ghanaProducts.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.category.toLowerCase().includes(query)
+    );
+
+    // Redraw the screen
+    container.innerHTML = ''; 
+    renderItems(filtered); // Or use your loop here
+}
