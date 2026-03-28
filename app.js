@@ -101,3 +101,15 @@ function logout() {
         window.location.reload();
     });
 }
+// Inside your displayProducts function, update the HTML generation:
+container.innerHTML += `
+    <div class="product-card bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+        <img src="${product.image}" class="w-full h-48 object-cover rounded-xl mb-3">
+        <h3 class="font-bold text-gray-800 text-sm">${product.name}</h3>
+        <p class="text-blue-600 font-black mb-3 text-lg">GH₵ ${product.price}</p>
+        
+        <a href="details.html?id=${product.id}" class="block text-center w-full py-2 bg-gray-100 text-gray-700 rounded-xl text-xs font-bold hover:bg-gray-200 transition">
+            View Details
+        </a>
+    </div>
+`;
