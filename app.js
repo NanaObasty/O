@@ -77,3 +77,27 @@ function showSlide(index) {
 setInterval(() => {
     showSlide(currentSlide + 1);
 }, 5000);
+// Check if a user is logged in
+firebase.auth().onAuthStateChanged((user) => {
+    const banner = document.getElementById('user-banner');
+    const callout = document.getElementById('login-callout');
+    const userEmail = document.getElementById('user-email');
+
+    if (user) {
+        // USER IS LOGGED IN
+        banner.classList.remove('hidden');
+        callout.classList.add('hidden');
+        userEmail.innerText = user.email;
+    } else {
+        // USER IS NOT LOGGED IN
+        banner.classList.add('hidden');
+        callout.classList.remove('hidden');
+    }
+});
+
+// Logout Function
+function logout() {
+    firebase.auth().signOut().then(() => {
+        window.location.reload();
+    });
+}
