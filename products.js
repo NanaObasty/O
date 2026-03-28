@@ -24,13 +24,17 @@ const ghanaProducts = [
         description: "Durable Northern Region leather. Very comfortable for daily use."
     } // <--- I added this bracket and comma back in!
     { 
+      }, // <--- This comma MUST be here after ID 2
+    { 
         id: 3, 
         name: "Official Men's Shoes", 
         category: "Shoes", 
         price: 450, 
         location: "Accra", 
-        image: "https://www.pinterest.com/pin/421579215140770371/", 
+        inStock: true,
+        // FIXED: Direct Image Address (Not the Pinterest page)
+        image: "https://i.pinimg.com/736x/8d/6d/f4/8d6df42151407703716a41416e788812.jpg", 
         description: "Genuine black leather, perfect for office or formal events." 
     }
-    // Add all your 100+ items here!
+    // If you add ID 4, put a comma right here -> ,
 ];
