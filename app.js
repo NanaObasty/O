@@ -35,3 +35,26 @@ window.onload = function() {
     flyer.style.position = "relative";
     flyer.appendChild(closeBtn);
 };
+let currentSlide = 0;
+const slides = document.getElementById('slider-container');
+const dots = document.querySelectorAll('.dot');
+const totalSlides = 3;
+
+function showSlide(index) {
+    if (index >= totalSlides) currentSlide = 0;
+    else if (index < 0) currentSlide = totalSlides - 1;
+    else currentSlide = index;
+
+    // Move the container
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Update Dots
+    dots.forEach((dot, i) => {
+        dot.style.opacity = i === currentSlide ? "1" : "0.5";
+    });
+}
+
+// Auto-play every 5 seconds
+setInterval(() => {
+    showSlide(currentSlide + 1);
+}, 5000);
