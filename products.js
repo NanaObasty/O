@@ -6,7 +6,7 @@ const ghanaProducts = [
         category: "Dresses", 
         price: 250, 
         location: "Koforidua", 
-        image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800", 
+        image: "https://www.pinterest.com/pin/9007267999689081/", 
         description: "Beautiful authentic Kente print. Perfect for church or weddings. Size: Medium." 
     },
     { 
@@ -15,7 +15,7 @@ const ghanaProducts = [
         category: "Sandals", 
         price: 120, 
         location: "Kumasi", 
-        image: "https://images.unsplash.com/photo-1603487742131-4160ec999306?w=800", 
+        image: "https://www.pinterest.com/pin/119556565104270678/", 
         description: "Durable Northern Region leather. Very comfortable for daily wear." 
     },
     { 
@@ -24,7 +24,7 @@ const ghanaProducts = [
         category: "Shoes", 
         price: 450, 
         location: "Accra", 
-        image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800", 
+        image: "https://www.pinterest.com/pin/421579215140770371/", 
         description: "Genuine black leather, perfect for office or formal events." 
     }
     // Add all your 100+ items here!
